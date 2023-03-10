@@ -1,15 +1,21 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ProductBuy from '../components/product/ProductBuy'
 import FloatButtonScrollTop from '../components/ui/FloatButtonScrollTop'
 import usePageTitle from '../hooks/usePageTitle'
+import startGetProducts from '../services/product/startGetProducts'
 
 export default function ShopPage() {
   const { order, product } = useSelector((state) => state)
+  const dispatch = useDispatch()
   usePageTitle()
 
   const { products } = product
   const { activeOrder } = order
+
+  useEffect(() => {
+    dispatch(startGetProducts())
+  }, [])
 
   return (
     <div className="mt-4 flex flex-wrap sm:mt-4 justify-center">
